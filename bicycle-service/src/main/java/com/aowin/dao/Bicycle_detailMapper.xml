@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.Bicycle_detailMapper">
+
+	<insert id="insert" parameterType="com.aowin.model.Bicycle_detail">
+		insert into bicycle_order_detail
+			(catagory_id,order_id,bicycle_id,create_date,batch_no,price,remark)
+		values
+			(#{catagory_id},#{order_id},#{bicycle_id},#{create_date},#{batch_no},#{price},#{remark})
+	</insert>
+
+	<select id="select" resultType="com.aowin.model.Bicycle_detail">
+		select
+			o.*,bicycle_code
+		from
+			(select d.*,catagory_name from bicycle_order_detail d left join
+			bicycle_catagory c on d.catagory_id = c.catagory_id)o
+		left join
+			bicycle_info i
+		on
+			o.bicycle_id = i.bicycle_id
+		where
+			order_id = #{order_id}
+	</select>
+	
+	<delete id="delete" parameterType="com.aowin.model.Bicycle_detail">
+		delete from bicycle_order_detail where detail_id = #{detail_id}
+	</delete>
+</mapper>

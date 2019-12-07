@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.SyuserMapper">
+	<select id="login" parameterType="com.aowin.model.Syuser" resultType="com.aowin.model.Syuser">
+		select
+			*
+		from
+			syuser
+		where
+			loginName = #{loginName}
+		and
+			password = MD5(#{password})
+	</select>
+	
+	<insert id="insert" parameterType="com.aowin.model.Syuser" useGeneratedKeys="true" keyProperty="userId">
+		insert into syuser 
+			(<include refid="syuserResult"></include>)
+		values 
+			(#{roleId},#{loginName},#{username},MD5(#{password}),${0},${0},#{officePhone},#{mobilePhone},#{email})
+	</insert>
+	
+	<select id="select" resultType="com.aowin.model.Syuser">
+		select
+			u.*,r.ROLE_NAME
+		from 
+			syuser u inner join syrole r on u.roleId = r.ROLE_ID
+		<where>
+			<if test="loginName != null and loginName != ''">
+				and loginName like concat('%',#{loginName},'%')
+			</if>
+			<if test="username != null and username != ''">
+				and username like concat('%',#{username},'%')
+			</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from syuser where userId = #{userId}
+	</delete>
+	
+	<update id="update" parameterType="com.aowin.model.Syuser" >
+		update 
+			syuser 
+		set 
+			roleId = #{roleId},loginName = #{loginName},username = #{username},password = #{password},officePhone = #{officePhone},mobilePhone = #{mobilePhone},email = #{email}
+		where
+			userId = #{userId}
+	</update>
+	
+	<sql id="syuserResult">
+		roleId,
+		loginName,
+		username ,
+		password,
+		activeFlag,
+		zxbj,
+		officePhone,
+		mobilePhone,
+		email
+	</sql>
+	
+</mapper>

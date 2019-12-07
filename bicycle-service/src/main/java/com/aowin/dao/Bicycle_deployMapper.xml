@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.Bicycle_deployMapper">
+
+	<insert id="insert" parameterType="com.aowin.model.Bicycle_deploy" useGeneratedKeys="true" keyProperty="deploy_id">
+		insert into bicycle_deploy 
+			(bicycle_id,to_pile_id,to_time,to_reason) 
+		values (#{bicycle_id},#{to_pile_id},#{to_time},#{to_reason})
+	</insert>
+</mapper>

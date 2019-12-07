@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.Bicycle_infoMapper">
+
+	<insert id="insert" parameterType="com.aowin.model.Bicycle_info" useGeneratedKeys="true" keyProperty="bicycle_id">
+		insert into bicycle_info 
+			(bicycle_code,status,pile_id,destory_date,user_id,operator_time,card_id,remark) 
+		values (#{bicycle_code},${1},#{pile_id},#{destory_date},#{user_id},#{operator_time},#{card_id},#{remark})
+	</insert>
+	<!-- 查询车辆编号最大值 -->
+	<select id="select" resultType="java.lang.String">
+		select
+			MAX(bicycle_code)
+		from 
+			bicycle_info
+	</select>
+	<select id="selectPage" resultType="com.aowin.model.Bicycle_info">
+		select * from bicycle_info where status = 1
+	</select>
+	<update id="update" parameterType="com.aowin.model.Bicycle_info">
+		update bicycle_info set status = 3,pile_id = #{pile_id} where bicycle_id = #{bicycle_id} and status = 1
+	</update>
+</mapper>

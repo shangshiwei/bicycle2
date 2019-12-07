@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.Bicycle_orderMapper">
+
+	<insert id="insert" parameterType="com.aowin.model.Bicycle_order" useGeneratedKeys="true" keyProperty="order_id">
+		insert into bicycle_order 
+			(order_code,vender_id,buy_date,buy_num,buy_price,person_in_charge,invoice_no,user_id,operator_time,remark) 
+		values (#{order_code},#{vender_id},#{buy_date},#{buy_num},#{buy_price},#{person_in_charge},#{invoice_no},#{user_id},#{operator_time},#{remark})
+	</insert>
+	
+	<select id="select" resultType="com.aowin.model.Bicycle_order">
+		select
+			o.*,vender_name
+		from 
+			bicycle_order o	
+		left join
+			vender v
+		on
+			o.vender_id = v.vender_id
+	</select>
+</mapper>

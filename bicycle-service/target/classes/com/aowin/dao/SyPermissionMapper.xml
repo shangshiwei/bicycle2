@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace - 对应具体的接口的名字  -->
+<mapper namespace="com.aowin.dao.SyPermissionMapper">
+
+	<select id="selectByroleId" parameterType="Integer" resultType="java.lang.String">
+		select
+			DESCRIPTION
+		from 
+			sypermission s,msphase m	
+		where
+			s.PHASEID = m.PHASEID
+		and
+			ROLEID = #{role_id}
+	</select>
+	
+	<select id="selectURL" parameterType="Integer" resultType="java.lang.String">
+		select
+			URL
+		from 
+			sypermission s,msphase m	
+		where
+			s.PHASEID = m.PHASEID
+		and
+			ROLEID = #{role_id}
+	</select>
+	
+	<insert id="insert" parameterType="com.aowin.model.SyPermission">
+		insert into sypermission (ROLEID,PHASEID) values (#{roleId},#{phaseId})
+	</insert>
+	
+	<select id="selectByroleId2" parameterType="Integer" resultType="Integer">
+		select
+			PHASEID
+		from 
+			sypermission	
+		where
+			ROLEID = #{role_id}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from sypermission where ROLEID = #{role_id}
+	</delete>
+</mapper>

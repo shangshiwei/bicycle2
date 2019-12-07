@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>自行车系统管理平台</title>
+
+<style type="text/css">
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px
+}
+
+#container {
+	height: 100%
+}
+</style>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=3.0&ak=nxFTaYqFLmz7RMxBGl7bW52swG0o0SeK">
+	//v3.0版本的引用方式：src="http://api.map.baidu.com/api?v=3.0&ak=您的密钥"
+</script>
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="../../css/metisMenu.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="../../css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- jQuery -->
+<script src="../../js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../../js/bootstrap.min.js"></script>
+		
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../../js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../../js/sb-admin-2.min.js"></script>
+<script src="../../js/index.js"></script>
+		
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/vue-resource.min.js"></script>
+<script type="text/javascript" src="../../js/map.js"></script>
+</head>
+
+<body>
+	<div id="container"></div>
+
+	<script type="text/javascript">
+		var map = new BMap.Map("container");
+		var point = new BMap.Point(120.129933, 30.252236);
+		map.centerAndZoom(point, 12);
+		var marker = new BMap.Marker(point);
+		
+		// 函数 创建多个标注
+		function markerFun(points, infoWindows) {
+			var markers = new BMap.Marker(points);
+			map.addOverlay(markers);
+			markers.addEventListener("click", function(event) {
+			
+				map.openInfoWindow(infoWindows, points);//参数：窗口、点  根据点击的点出现对应的窗口
+			});
+		}
+	</script>
+		<!-- 车桩弹出层 -->
+	<div id="selectPileDiv" tabindex="-1" role="dialog"
+		>
+		<div class="modal-dialog" style="width: 700px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">车桩详情</h4>
+				</div>
+				<div class="modal-body" style="height: 400px">
+					
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div id="dataTables-example_wrapper"
+									class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+									<div class="row">
+										<div class="col-sm-12">
+											<table width="100%"
+												class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline"
+												role="grid" aria-describedby="dataTables-example_info"
+												style="width: 100%;">
+												<thead>
+													<tr role="row">
+														<th>车桩id</th>
+														<th>车桩编号</th>
+														<th>状态</th>
+														<th>所存车辆id</th>
+													</tr>
+												</thead>
+												<tbody id="users">
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" value="关闭" onclick="exit()"/>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</body>
+</html>
